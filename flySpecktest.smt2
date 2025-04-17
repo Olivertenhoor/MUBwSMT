@@ -1,0 +1,10 @@
+(set-logic QF_NRA)
+(set-info :precision 0.001)
+(declare-fun x () Real)
+(assert (<= 3.0 x))
+(assert (<= x 64.0))
+(assert (not (> (- (* 2.0 3.14159265) (* 2.0 (* x (arcsin (* (cos
+0.797) (sin (/ 3.14159265 x))))))) (+ (- 0.591 (* 0.0331 x))
+(+ (* 0.506 (/ (- 1.26 1.0) (- 1.26 1.0))) 1.0)))))
+(check-sat)
+(exit)
