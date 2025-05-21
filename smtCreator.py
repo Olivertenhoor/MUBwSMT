@@ -12,7 +12,7 @@ smt_lines = [
     f"(define-fun pi () Real {pi})",
 ]
 
-# Declare variables f_j_m_z for j in 0..5, m in 1..3, z in 1..6
+# Declare variables f_j_m_z
 for j, m, z in product(range(d), range(1, ell+1), range(1, d+1)):
     var = f"f_{j}_{m}_{z}"
     smt_lines.append(f"(declare-fun {var} () Real)")

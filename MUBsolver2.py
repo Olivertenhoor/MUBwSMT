@@ -39,13 +39,13 @@ def encode_mub_problem(d, l):
     
     return problem, f
 
-# Example usage for d=2 and l=3
+# 
 d = 2
 l = 3
 problem, f = encode_mub_problem(d, l)
 
 # **Tighter precision to reduce numerical instability**
-result = CheckSatisfiability(problem, 0.001)  # Instead of 0.01
+result = CheckSatisfiability(problem, 0.1)  # Instead of 0.01
 if result:
     print("SAT - Solution found!")
     model = result
