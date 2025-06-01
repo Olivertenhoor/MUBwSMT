@@ -1,21 +1,25 @@
+# Fix the first basis to the standard basis: all phases = 0
+# Then generate only 3 additional bases to search for mutual unbiasedness
 from itertools import product
-
 # Constants
 d = 6  # dimension
-l = 4  # number of bases
-v = 6  # vectors per basis (equals dimension for full bases)
+l = 4  # total number of bases
+search_bases = 3  # we fix basis 1, so only 3 need to be searched
+v = 6  # vectors per basis
 
-# Generate variable declarations and bounds
+# Declare only variables for bases 2-4
 declarations = []
 bounds = []
-for b, vec, comp in product(range(1, l + 1), range(v), range(d)):
+for b, vec, comp in product(range(2, l + 1), range(v), range(d)):
     var = f"f{b}{vec}_{comp}"
     declarations.append(f"(declare-fun {var} () Real)")
     bounds.append(f"(assert (and (>= {var} 0.0) (< {var} 2.0)))")
 
-# Generate orthonormality constraints for each basis
+# Fixed basis 1 (standard basis) – all phases zero, so no need to declare vars
+
+# Orthonormality constraints for bases 2 to 4
 orthonormality_constraints = []
-for b in range(1, l + 1):
+for b in range(2, l + 1):
     for i in range(v):
         for j in range(i + 1, v):
             real_sum = " ".join([f"(cos (* pi (- f{b}{i}_{k} f{b}{j}_{k})))" for k in range(d)])
@@ -23,9 +27,25 @@ for b in range(1, l + 1):
             orthonormality_constraints.append(f"(assert (= 0.0 (+ {real_sum})))")
             orthonormality_constraints.append(f"(assert (= 0.0 (+ {imag_sum})))")
 
-# Generate mutual unbiasedness constraints between different bases
+# Mutual unbiasedness constraints
 mub_constraints = []
-for b1 in range(1, l + 1):
+
+# Between fixed basis 1 and others
+for b2 in range(2, l + 1):
+    for i in range(v):
+        for j in range(v):
+            real_sum = " ".join([f"(cos (* pi (- 0.0 f{b2}{j}_{k})))" for k in range(d)])
+            imag_sum = " ".join([f"(sin (* pi (- 0.0 f{b2}{j}_{k})))" for k in range(d)])
+            constraint = f"""(assert (= (/ 1.0 {d}.0) (/
+  (+
+    (^ (+ {real_sum}) 2.0)
+    (^ (+ {imag_sum}) 2.0)
+  )
+  {d*d}.0)))"""
+            mub_constraints.append(constraint)
+
+# Between bases 2-4
+for b1 in range(2, l + 1):
     for b2 in range(b1 + 1, l + 1):
         for i in range(v):
             for j in range(v):
@@ -39,8 +59,8 @@ for b1 in range(1, l + 1):
   {d*d}.0)))"""
                 mub_constraints.append(constraint)
 
-# Assemble the full SMT2 file
-smt2_content = f"""(set-logic QF_NRA)
+# Assemble the SMT2 file
+smt2_symmetry_reduced = f"""(set-logic QF_NRA)
 (set-option :produce-models true)
 (set-option :smt.dreal_precision 0.001)
 
@@ -48,16 +68,16 @@ smt2_content = f"""(set-logic QF_NRA)
 (define-fun d () Int {d})
 (define-fun l () Int {l})
 
-; Variable declarations
+; Variables for bases 2 to 4
 {chr(10).join(declarations)}
 
-; Variable bounds
+; Bounds
 {chr(10).join(bounds)}
 
-; Orthonormality constraints
+; Orthonormality constraints for bases 2 to 4
 {chr(10).join(orthonormality_constraints)}
 
-; Mutual unbiasedness constraints
+; MUB constraints (between fixed basis and 2-4, and among 2-4)
 {chr(10).join(mub_constraints)}
 
 (check-sat)
@@ -65,7 +85,7 @@ smt2_content = f"""(set-logic QF_NRA)
 """
 
 # Save to file
-with open("/mnt/c/B_Informatica/jaar3/scriptie/MUBwSMT/smt2/mub_d6_l4.smt2", "w") as f:
-    f.write(smt2_content)
+with open("/mnt/c/B_Informatica/jaar3/scriptie/MUBwSMT/smt2/mub_d6_l4_FixedFirstBase.smt2", "w") as f:
+    f.write(smt2_symmetry_reduced)
 
-"/mnt/data/mub_d6_l4.smt2"
+"/mnt/data/mub_d6_l4_symmetry_reduced.smt2"

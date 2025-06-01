@@ -46,7 +46,6 @@
 )))
 
 ; Mutual unbiasedness constraints (4 assertions)
-; Each has 25 parentheses
 (assert (= (/ 1.0 2.0) (/
     (+
         (^ (+ (cos (* pi (- f10_1 f20_1))) (cos (* pi (- f10_2 f20_2)))) 2.0)
