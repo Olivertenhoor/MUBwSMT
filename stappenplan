@@ -1,0 +1,19 @@
+Plan voor scriptie:
+-Aannemelijk maken om dimensie 6 te zoeken
+-Door tijd en precisie parameters te vinden
+-Andere dimensies laten zien dat het zo is
+
+
+
+Todo
+-Encoding herschrijven
+-Bronnen voor eurlers algoritme en modulo squared of complex numbers
+-Dimensie 2 schrijven en uitwerken
+-Dimensie 2 tijdtesten voor verschillende precisie
+-Dimensie 2 precisie testen door goeie waarden van MUB's
+-dReal opties bekijken
+-Bases vinden voor dimensie 3 tot 5 & 7 tot 9
+-Scriptie verder schrijven
+-Zelf bases in dimensie 2 berkenen
+-Probleem van grootte trace beschrijven en oplossing voor verder onderzoek
+

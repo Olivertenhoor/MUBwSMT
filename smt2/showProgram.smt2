@@ -1,6 +1,7 @@
 (set-logic QF_NRA)
-(set-option :produce-models true)
 (set-option :precision 0.001)
+(define-fun pi () Real 3.141592653589793)
+
 
 ;Declare the variables to be used
 (declare-fun x () Real)
@@ -15,6 +16,8 @@
 ;Actual mathematical function to be solved
 (assert(= (+ (^ x 2) (^ y 2)) z))
 
-(check-sat)
 
+
+(check-sat)
+(get-model)
 

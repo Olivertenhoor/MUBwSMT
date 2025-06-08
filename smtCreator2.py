@@ -1,9 +1,9 @@
 from itertools import product
 
 # Constants
-d = 6  # dimension
-l = 4  # number of bases
-v = 6  # vectors per basis (equals dimension for full bases)
+d = 3  # dimension
+l = 3  # number of bases
+v = 3  # vectors per basis (equals dimension for full bases)
 
 # Generate variable declarations and bounds
 declarations = []
@@ -31,15 +31,15 @@ for b1 in range(1, l + 1):
             for j in range(v):
                 real_sum = " ".join([f"(cos (* pi (- f{b1}{i}_{k} f{b2}{j}_{k})))" for k in range(d)])
                 imag_sum = " ".join([f"(sin (* pi (- f{b1}{i}_{k} f{b2}{j}_{k})))" for k in range(d)])
-                constraint = f"""(assert (= (/ 1.0 {d}.0) (/
+                constraint = f"""(assert (= {d}.0 
   (+
     (^ (+ {real_sum}) 2.0)
     (^ (+ {imag_sum}) 2.0)
   )
-  {d*d}.0)))"""
+))"""
                 mub_constraints.append(constraint)
 
-# Assemble the full SMT2 file
+# Assemble full SMT2 file
 smt2_content = f"""(set-logic QF_NRA)
 (set-option :produce-models true)
 (set-option :smt.dreal_precision 0.001)
@@ -65,7 +65,6 @@ smt2_content = f"""(set-logic QF_NRA)
 """
 
 # Save to file
-with open("/mnt/c/B_Informatica/jaar3/scriptie/MUBwSMT/smt2/mub_d6_l4.smt2", "w") as f:
+with open("/home/oliver/Documents/B_Informatica/MUBwSMT/smt2/mub_d3_l3.smt2", "w") as f:
     f.write(smt2_content)
 
-"/mnt/data/mub_d6_l4.smt2"

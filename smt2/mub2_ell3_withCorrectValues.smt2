@@ -14,15 +14,6 @@
 (declare-fun f_1_2_2 () Real) ; f(1,2,2)
 
 ; Phase bounds [0, 2)
-(assert (and (>= f_0_1_1 0) (< f_0_1_1 2)))
-(assert (and (>= f_0_1_2 0) (< f_0_1_2 2)))
-(assert (and (>= f_1_1_1 0) (< f_1_1_1 2)))
-(assert (and (>= f_1_1_2 0) (< f_1_1_2 2)))
-(assert (and (>= f_0_2_1 0) (< f_0_2_1 2)))
-(assert (and (>= f_0_2_2 0) (< f_0_2_2 2)))
-(assert (and (>= f_1_2_1 0) (< f_1_2_1 2)))
-(assert (and (>= f_1_2_2 0) (< f_1_2_2 2)))
-
 
 ; Force phases toward expected minimal values
 (assert (= f_0_1_1 0))      
