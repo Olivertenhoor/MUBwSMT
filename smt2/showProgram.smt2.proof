@@ -1,0 +1,4 @@
+[before pruning]
+x : [-inf,inf] = [0x0p+0,0x1.4p+3]
+y : [-inf,inf] = [0x0p+0,0x1.4p+3]
+z : [-inf,inf] = [0x1.92p+7,0x1.92p+7][conflict detected] by (= z (+ (^ x 2) (^ y 2)))
