@@ -1,17 +1,28 @@
 from itertools import product
 
 # Constants
-d = 3  # dimension
-l = 3  # number of bases
-v = 3  # vectors per basis (equals dimension for full bases)
+d = 4  # dimension
+l = 2  # number of bases
+v = 4  # vectors per basis (equals dimension for full bases)
+q = 2  # quantized variable
+quantized = True # quantized version
+
 
 # Generate variable declarations and bounds
 declarations = []
 bounds = []
+
 for b, vec, comp in product(range(1, l + 1), range(v), range(d)):
     var = f"f{b}{vec}_{comp}"
     declarations.append(f"(declare-fun {var} () Real)")
-    bounds.append(f"(assert (and (>= {var} 0.0) (< {var} 2.0)))")
+    if quantized:
+        # for i in range((2*q)-1):
+            
+        bounds_sum = " ".join([f"(= {var} {i/q})" for i in range((q*2))])
+            
+        bounds.append(f"(assert (or {bounds_sum}))")
+    else:
+        bounds.append(f"(assert (and (>= {var} 0.0) (< {var} 2.0)))")
 
 # Generate orthonormality constraints for each basis
 orthonormality_constraints = []
@@ -20,8 +31,8 @@ for b in range(1, l + 1):
         for j in range(i + 1, v):
             real_sum = " ".join([f"(cos (* pi (- f{b}{i}_{k} f{b}{j}_{k})))" for k in range(d)])
             imag_sum = " ".join([f"(sin (* pi (- f{b}{i}_{k} f{b}{j}_{k})))" for k in range(d)])
-            orthonormality_constraints.append(f"(assert (= 0.0 (+ {real_sum})))")
-            orthonormality_constraints.append(f"(assert (= 0.0 (+ {imag_sum})))")
+            orthonormality_constraints.append(f"(assert (= cosZero (+ {real_sum})))")
+            orthonormality_constraints.append(f"(assert (= sinZero (+ {imag_sum})))")
 
 # Generate mutual unbiasedness constraints between different bases
 mub_constraints = []
@@ -31,7 +42,7 @@ for b1 in range(1, l + 1):
             for j in range(v):
                 real_sum = " ".join([f"(cos (* pi (- f{b1}{i}_{k} f{b2}{j}_{k})))" for k in range(d)])
                 imag_sum = " ".join([f"(sin (* pi (- f{b1}{i}_{k} f{b2}{j}_{k})))" for k in range(d)])
-                constraint = f"""(assert (= {d}.0 
+                constraint = f"""(assert (= dVar 
   (+
     (^ (+ {real_sum}) 2.0)
     (^ (+ {imag_sum}) 2.0)
@@ -47,6 +58,17 @@ smt2_content = f"""(set-logic QF_NRA)
 (define-fun pi () Real 3.141592653589793)
 (define-fun d () Int {d})
 (define-fun l () Int {l})
+
+(declare-fun dVar () Real)
+
+(declare-fun sinZero () Real)
+(declare-fun cosZero () Real)
+
+
+(assert (and (> sinZero -0.001) (< sinZero 0.001) ))
+(assert (and (> cosZero -0.001) (< cosZero 0.001) ))
+
+(assert (and (> dVar {d-1}.999) (< dVar {d}.001) ))
 
 ; Variable declarations
 {chr(10).join(declarations)}
@@ -65,6 +87,6 @@ smt2_content = f"""(set-logic QF_NRA)
 """
 
 # Save to file
-with open("/home/oliver/Documents/B_Informatica/MUBwSMT/smt2/mub_d3_l3.smt2", "w") as f:
+with open("/home/oliver/Documents/B_Informatica/MUBwSMT/smt2/mub_d4_l2.smt2", "w") as f:
     f.write(smt2_content)
 

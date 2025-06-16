@@ -87,5 +87,3 @@ smt2_symmetry_reduced = f"""(set-logic QF_NRA)
 # Save to file
 with open("/mnt/c/B_Informatica/jaar3/scriptie/MUBwSMT/smt2/mub_d6_l4_FixedFirstBase.smt2", "w") as f:
     f.write(smt2_symmetry_reduced)
-
-"/mnt/data/mub_d6_l4_symmetry_reduced.smt2"

@@ -29,8 +29,8 @@
 (assert (and (> sinZero -0.0001) (< sinZero 0.0001) ))
 (assert (and (> cosZero -0.0001) (< cosZero 0.0001) ))
 
-(declare-fun twee () Real)
-(assert (and (> twee 1.9999) (< twee 2.0001) ))
+(declare-fun dVar () Real)
+(assert (and (> dVar 1.9999) (< dVar 2.0001) ))
 
 
 
@@ -79,73 +79,73 @@
 (assert (= sinZero (+ (sin (* pi (- f30_0 f31_0))) (sin (* pi (- f30_1 f31_1))))))
 
 ; Mutual unbiasedness constraints
-(assert (= twee
+(assert (= dVar
   (+
     (^ (+ (cos (* pi (- f10_0 f20_0))) (cos (* pi (- f10_1 f20_1)))) 2.0)
     (^ (+ (sin (* pi (- f10_0 f20_0))) (sin (* pi (- f10_1 f20_1)))) 2.0)
   )
 ))
-(assert (= twee
+(assert (= dVar
   (+
     (^ (+ (cos (* pi (- f10_0 f21_0))) (cos (* pi (- f10_1 f21_1)))) 2.0)
     (^ (+ (sin (* pi (- f10_0 f21_0))) (sin (* pi (- f10_1 f21_1)))) 2.0)
   )
 ))
-(assert (= twee
+(assert (= dVar
   (+
     (^ (+ (cos (* pi (- f11_0 f20_0))) (cos (* pi (- f11_1 f20_1)))) 2.0)
     (^ (+ (sin (* pi (- f11_0 f20_0))) (sin (* pi (- f11_1 f20_1)))) 2.0)
   )
 ))
-(assert (= twee 
+(assert (= dVar 
   (+
     (^ (+ (cos (* pi (- f11_0 f21_0))) (cos (* pi (- f11_1 f21_1)))) 2.0)
     (^ (+ (sin (* pi (- f11_0 f21_0))) (sin (* pi (- f11_1 f21_1)))) 2.0)
   )
 ))
-(assert (= twee 
+(assert (= dVar 
   (+
     (^ (+ (cos (* pi (- f10_0 f30_0))) (cos (* pi (- f10_1 f30_1)))) 2.0)
     (^ (+ (sin (* pi (- f10_0 f30_0))) (sin (* pi (- f10_1 f30_1)))) 2.0)
   )
 ))
-(assert (= twee
+(assert (= dVar
   (+
     (^ (+ (cos (* pi (- f10_0 f31_0))) (cos (* pi (- f10_1 f31_1)))) 2.0)
     (^ (+ (sin (* pi (- f10_0 f31_0))) (sin (* pi (- f10_1 f31_1)))) 2.0)
   )
 ))
-(assert (= twee
+(assert (= dVar
   (+
     (^ (+ (cos (* pi (- f11_0 f30_0))) (cos (* pi (- f11_1 f30_1)))) 2.0)
     (^ (+ (sin (* pi (- f11_0 f30_0))) (sin (* pi (- f11_1 f30_1)))) 2.0)
   )
 ))
-(assert (= twee
+(assert (= dVar
   (+
     (^ (+ (cos (* pi (- f11_0 f31_0))) (cos (* pi (- f11_1 f31_1)))) 2.0)
     (^ (+ (sin (* pi (- f11_0 f31_0))) (sin (* pi (- f11_1 f31_1)))) 2.0)
   )
 ))
-(assert (= twee 
+(assert (= dVar 
   (+
     (^ (+ (cos (* pi (- f20_0 f30_0))) (cos (* pi (- f20_1 f30_1)))) 2.0)
     (^ (+ (sin (* pi (- f20_0 f30_0))) (sin (* pi (- f20_1 f30_1)))) 2.0)
   )
 ))
-(assert (= twee
+(assert (= dVar
   (+
     (^ (+ (cos (* pi (- f20_0 f31_0))) (cos (* pi (- f20_1 f31_1)))) 2.0)
     (^ (+ (sin (* pi (- f20_0 f31_0))) (sin (* pi (- f20_1 f31_1)))) 2.0)
   )
 ))
-(assert (= twee 
+(assert (= dVar 
   (+
     (^ (+ (cos (* pi (- f21_0 f30_0))) (cos (* pi (- f21_1 f30_1)))) 2.0)
     (^ (+ (sin (* pi (- f21_0 f30_0))) (sin (* pi (- f21_1 f30_1)))) 2.0)
   )
 ))
-(assert (= twee
+(assert (= dVar
   (+
     (^ (+ (cos (* pi (- f21_0 f31_0))) (cos (* pi (- f21_1 f31_1)))) 2.0)
     (^ (+ (sin (* pi (- f21_0 f31_0))) (sin (* pi (- f21_1 f31_1)))) 2.0)

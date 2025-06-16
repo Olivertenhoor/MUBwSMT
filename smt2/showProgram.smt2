@@ -10,7 +10,7 @@
 ;Bounds of the Variables
 (assert (and (>= x 0.0) (< x 10.0)))
 (assert (and (>= y 0.0) (< y 10.0)))
-(assert (= z 201.0))
+(assert (= z 10.0))
 
 ;Actual mathematical function to be solved
 (assert(= (+ (^ x 2) (^ y 2)) z))
