@@ -17,6 +17,7 @@
 
 (assert (and (> dVar 1.999) (< dVar 2.001) ))
 
+
 ; Variable declarations
 (declare-fun f10_0 () Real)
 (declare-fun f10_1 () Real)

@@ -1,9 +1,9 @@
 from itertools import product
 
 # Constants
-d = 2  # dimension
-l = 3  # number of bases
-v = 2  # vectors per basis (equals dimension for full bases)
+d = 5  # dimension
+l = 2  # number of bases
+v = 5  # vectors per basis (equals dimension for full bases)
 n = 3 # variable for amount of quantization
 quantized = True # quantized version
 
@@ -22,7 +22,7 @@ for b, vec, comp in product(range(1, l + 1), range(v), range(d)):
     var = f"f{b}{vec}_{comp}"
     declarations.append(f"(declare-fun {var} () Real)")
     if quantized:
-        bounds_sum = " ".join([f"(= {var} {x/q})" for x in range((q*2))])
+        bounds_sum = " ".join([f"(= {var} (/ {x} {q}))" for x in range((q*2))])
         bounds.append(f"(assert (or {bounds_sum}))")
     else:
         bounds.append(f"(assert (and (>= {var} 0.0) (< {var} 2.0)))")
@@ -73,6 +73,7 @@ smt2_content = f"""(set-logic QF_NRA)
 
 (assert (and (> dVar {d-1}.999) (< dVar {d}.001) ))
 
+
 ; Variable declarations
 {chr(10).join(declarations)}
 
@@ -90,6 +91,6 @@ smt2_content = f"""(set-logic QF_NRA)
 """
 
 # Save to file
-with open("/home/oliver/Documents/B_Informatica/MUBwSMT/ThesisScripts/mub_d2_l3.smt2", "w") as f:
+with open("/home/oliver/Documents/B_Informatica/MUBwSMT/ThesisScripts/mub_d5_l2.smt2", "w") as f:
     f.write(smt2_content)
 
