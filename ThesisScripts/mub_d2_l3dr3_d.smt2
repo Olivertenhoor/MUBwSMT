@@ -1,10 +1,19 @@
 (set-logic QF_NRA)
 (set-option :produce-models true)
-(set-option :smt.dreal_precision 0.001)
 
-(define-fun pi () Real 3.141592653589793)
-(define-fun d () Int 2)
-(define-fun l () Int 3)
+;(define-fun pi () Real 3.141592653589793)
+
+(declare-fun pi () Real)
+(assert (= pi 3.141592653589793))
+
+;(define-fun d () Int 2)
+;(define-fun l () Int 3)
+
+(declare-fun d () Int)
+(assert (= d 2))
+
+(declare-fun l () Int)
+(assert (= l 3))
 
 (declare-fun dVar () Real)
 
@@ -12,11 +21,10 @@
 (declare-fun cosZero () Real)
 
 
-(assert (and (> sinZero -0.000001) (< sinZero 0.000001) ))
-(assert (and (> cosZero -0.000001) (< cosZero 0.000001) ))
+(assert (and (> sinZero -0.001) (< sinZero 0.001) ))
+(assert (and (> cosZero -0.001) (< cosZero 0.001) ))
 
-(assert (and (> dVar 1.999999) (< dVar 2.000001) ))
-
+(assert (and (> dVar 1.999) (< dVar 2.001) ))
 
 ; Variable declarations
 (declare-fun f10_0 () Real)
@@ -129,4 +137,3 @@
 ))
 
 (check-sat)
-(get-model)

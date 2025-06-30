@@ -6,8 +6,7 @@
 (declare-fun y () Real)
 (declare-fun z () Real)
 
-(define-fun square ((x Real)) Real
-  (* x x))
+(define-fun square ((x Real)) Real (* x x))
 
 ;Bounds of the Variables
 (assert (and (>= x 0.0) (< x 10.0)))

@@ -2,9 +2,10 @@
 (set-option :produce-models true)
 (set-option :smt.dreal_precision 0.001)
 
-(define-fun pi () Real 3.141592653589793)
-(define-fun d () Int 3)
-(define-fun l () Int 4)
+(declare-fun pi () Real)
+(assert (= pi 3.141592653589793))
+;(define-fun d () Int 3)
+;(define-fun l () Int 4)
 
 (declare-fun dVar () Real)
 
@@ -447,4 +448,3 @@
 ))
 
 (check-sat)
-(get-model)

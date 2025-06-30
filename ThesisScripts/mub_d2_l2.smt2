@@ -30,14 +30,22 @@
 
 (assert (and (> dVar 1.999) (< dVar 2.001) ))
 
-(assert (= f10_0 0))      
-(assert (= f10_1 0))      
-(assert (= f11_0 0))      
-(assert (= f11_1 1))      
-(assert (= f20_0 0))      
-(assert (or (= f20_1 0.5) (= f20_1 1.5)))  
-(assert (= f21_0 0))      
-(assert (= f21_1 1.5))   
+;(assert (= f10_0 0))      
+;(assert (= f10_1 0))      
+;(assert (= f11_0 0))      
+;(assert (= f11_1 1))      
+;(assert (= f20_0 0))      
+;(assert (or (= f20_1 0.5) (= f20_1 1.5)))  
+;(assert (= f21_0 0))      
+;(assert (= f21_1 1.5))   
+
+(assert (and (>= f10_1 0.0) (< f10_1 2.0)))
+(assert (and (>= f11_0 0.0) (< f11_0 2.0)))
+(assert (and (>= f11_1 0.0) (< f11_1 2.0)))
+(assert (and (>= f20_0 0.0) (< f20_0 2.0)))
+(assert (and (>= f20_1 0.0) (< f20_1 2.0)))
+(assert (and (>= f21_0 0.0) (< f21_0 2.0)))
+(assert (and (>= f21_1 0.0) (< f21_1 2.0)))
 
 
 
